@@ -68,6 +68,8 @@ export const logoutUser = (req: Request, res: Response): void => {
   res.cookie('jwt', '', {
     httpOnly: true,
     expires: new Date(0),
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
   });
   res.status(200).json({ message: 'Logged out' });
 };

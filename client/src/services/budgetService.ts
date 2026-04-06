@@ -1,23 +1,18 @@
-import axios from 'axios';
+import apiClient from './apiClient';
 
-const API_URL = 'http://localhost:5000/api/budgets';
-
-const apiClient = axios.create({
-  baseURL: API_URL,
-  withCredentials: true,
-});
+const API_URL = '/api/budgets';
 
 export const getBudgets = async () => {
-  const { data } = await apiClient.get('/');
+  const { data } = await apiClient.get(API_URL);
   return data;
 };
 
 export const upsertBudget = async (budgetData: { category: string; amount: number; period?: string }) => {
-  const { data } = await apiClient.post('/', budgetData);
+  const { data } = await apiClient.post(API_URL, budgetData);
   return data;
 };
 
 export const deleteBudget = async (id: string) => {
-  const { data } = await apiClient.delete(`/${id}`);
+  const { data } = await apiClient.delete(`${API_URL}/${id}`);
   return data;
 };
